@@ -3,12 +3,17 @@ plugins {
 }
 
 ext {
-    bouncycastleVersion = '1.66'
+    bouncycastleVersion = '1.78'
     junitJupiterVersion = '5.4.2'
+    grpcVersion = '1.63.0'
+    guavaVersion = '33.1.0-jre'
+    protobufVersion = '4.26.1'
+    nettyVersion = '4.1.108.Final'
+    vertxVersion = '4.5.7'
 }
 
 allprojects {
-    version '0.8.0'
+    version '0.8.0-dtcpay'
     group = 'org.tron.trident'
 
     repositories {
@@ -18,12 +23,17 @@ allprojects {
 
 subprojects {
     apply plugin: 'java'
-    apply plugin: 'maven'
     apply plugin: 'maven-publish'
 
+    javadoc {
+        options.encoding = 'UTF-8'
+    }
+
     java {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+        withSourcesJar()
+        withJavadocJar()
     }
 
     dependencies {
@@ -37,23 +47,21 @@ subprojects {
         }
     }
 
-    task sourcesJar(type: Jar, dependsOn: classes) {
-        classifier = 'sources'
-        from sourceSets.main.allSource
-    }
-
-    task javadocJar(type: Jar, dependsOn: javadoc) {
-        classifier = 'javadoc'
-        from javadoc.destinationDir
-    }
-
-    task wrapper(type: Wrapper) {
-        gradleVersion = '6.6.1'
+    tasks.register('wrapper', Wrapper) {
+        gradleVersion = '8.7'
     }
 
     artifacts {
         archives jar
-        archives sourcesJar
     }
+
+    publishing {
+        publications {
+            jar(MavenPublication) {
+                from components.java
+            }
+        }
+    }
+
 }
 

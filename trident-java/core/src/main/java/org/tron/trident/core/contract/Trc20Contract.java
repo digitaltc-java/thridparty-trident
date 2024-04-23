@@ -1,18 +1,17 @@
 package org.tron.trident.core.contract;
 
+import org.tron.trident.abi.FunctionReturnDecoder;
+import org.tron.trident.abi.TypeReference;
 import org.tron.trident.abi.datatypes.Address;
 import org.tron.trident.abi.datatypes.Bool;
 import org.tron.trident.abi.datatypes.Function;
-import org.tron.trident.abi.datatypes.generated.Uint8;
-import org.tron.trident.abi.datatypes.generated.Uint256;
 import org.tron.trident.abi.datatypes.Utf8String;
-import org.tron.trident.abi.FunctionReturnDecoder;
-import org.tron.trident.abi.TypeReference;
+import org.tron.trident.abi.datatypes.generated.Uint256;
+import org.tron.trident.abi.datatypes.generated.Uint8;
 import org.tron.trident.core.ApiWrapper;
 import org.tron.trident.core.transaction.TransactionBuilder;
 import org.tron.trident.proto.Chain.Transaction;
 import org.tron.trident.proto.Response.TransactionExtention;
-import org.tron.trident.proto.Response.TransactionReturn;
 import org.tron.trident.utils.Base58Check;
 import org.tron.trident.utils.Numeric;
 
@@ -116,8 +115,6 @@ public class Trc20Contract extends Contract {
        * Returns the account balance of another account with address _owner.
        * 
        * @param accountAddr The token owner's address
-       * @param callerAddr The caller's address
-       * @param cntrAddr The contract's address
        * @return the account balance of another account with address _owner
        */
       public BigInteger balanceOf(String accountAddr) {
@@ -226,8 +223,6 @@ public class Trc20Contract extends Contract {
        * 
        * @param owner The address to be withdrew from.
        * @param spender The address of the withdrawer.
-       * @param callerAddr The caller's address
-       * @param cntrAddr The contract's address
        * @return the amount which _spender is still allowed to withdraw from _owner
        */
       public BigInteger allowance(String owner, String spender) {

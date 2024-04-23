@@ -8,9 +8,7 @@ dependencies {
     implementation project(':utils')
 }
 
-tasks.create('buildLib', Jar) {
-    baseName = 'trident'
-    version = null
+tasks.register('buildLib', Jar) {
     from(sourceSets.main.output) {
         include '/**'
     }

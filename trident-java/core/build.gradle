@@ -1,41 +1,53 @@
 plugins {
-    id 'com.google.protobuf' version '0.8.12'
+    id 'com.google.protobuf' version '0.9.4'
 }
 
 description 'Trident-Java gRPC core classes'
 
 dependencies {
-    implementation 'com.google.guava:guava:29.0-jre'
+    implementation "com.google.guava:guava:$guavaVersion"
 
     implementation project(':utils')
     implementation project(':abi')
 
-    implementation 'io.grpc:grpc-netty-shaded:1.31.0'
-    implementation 'io.grpc:grpc-netty:1.31.0'
-    implementation 'io.grpc:grpc-okhttp:1.31.0'
-    implementation 'io.grpc:grpc-protobuf:1.31.0'
-    implementation 'io.grpc:grpc-stub:1.31.0'
-    compileOnly 'org.apache.tomcat:annotations-api:6.0.53' // necessary for Java 9+
+    implementation "io.grpc:grpc-netty-shaded:$grpcVersion"
+    implementation "io.grpc:grpc-netty:$grpcVersion"
+    implementation "io.grpc:grpc-okhttp:$grpcVersion"
+    implementation "io.grpc:grpc-protobuf:$grpcVersion"
+    implementation "io.grpc:grpc-stub:$grpcVersion"
     //json parsing
-    implementation 'com.google.protobuf:protobuf-java-util:3.11.0'
+    implementation "com.google.protobuf:protobuf-java-util:$protobufVersion"
 
-    implementation "org.bouncycastle:bcprov-jdk15on:$bouncycastleVersion"
+    implementation "org.bouncycastle:bcprov-jdk18on:$bouncycastleVersion"
+}
+
+sourceSets {
+    main {
+        java {
+            srcDirs 'build/generated/source/proto/main/grpc'
+            srcDirs 'build/generated/source/proto/main/java'
+        }
+    }
+}
+
+sourcesJar {
+    duplicatesStrategy DuplicatesStrategy.EXCLUDE
 }
 
 protobuf {
     protoc {
-        artifact = 'com.google.protobuf:protoc:3.12.0'
+        artifact = "com.google.protobuf:protoc:$protobufVersion:osx-x86_64"
     }
     plugins {
         grpc {
-            artifact = 'io.grpc:protoc-gen-grpc-java:1.31.0'
+            artifact = "io.grpc:protoc-gen-grpc-java:$grpcVersion:osx-x86_64"
         }
     }
     generateProtoTasks {
         all()*.plugins {
-            grpc { }
+            grpc {
+                option 'jakarta_omit'
+            }
         }
     }
-    generatedFilesBaseDir = "$projectDir/src"
 }
-

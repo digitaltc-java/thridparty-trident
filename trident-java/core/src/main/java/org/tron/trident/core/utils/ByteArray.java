@@ -94,7 +94,7 @@ public class ByteArray {
    * @param input the input byte array
    * @param start the start index
    * @param end the end index
-   * @return a subarray of <tt>input</tt>, ranging from <tt>start</tt> (inclusively) to <tt>end</tt>
+   * @return a subarray of <code>input</code>, ranging from <code>start</code> (inclusively) to <code>end</code>
    * (exclusively)
    */
   public static byte[] subArray(byte[] input, int start, int end) {

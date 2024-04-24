@@ -2,11 +2,10 @@ package org.tron.trident.core.contract;
 
 import com.google.protobuf.ByteString;
 import com.google.protobuf.util.JsonFormat;
-
 import org.tron.trident.abi.datatypes.Type;
+import org.tron.trident.core.ApiWrapper;
 import org.tron.trident.core.exceptions.ContractCreateException;
 import org.tron.trident.core.transaction.TransactionBuilder;
-import org.tron.trident.core.ApiWrapper;
 import org.tron.trident.proto.Common.SmartContract;
 import org.tron.trident.proto.Common.SmartContract.ABI;
 import org.tron.trident.proto.Common.SmartContract.ABI.Entry;
@@ -25,11 +24,11 @@ import java.util.List;
  * <p>This class provides mutator and accessor methods for all
  * attributes. Besides, functions of smart contracts are wrapped
  * and can be easily viewed through {@link
- * org.tron.trident.core.contract.ContractFunction#toString()}</>
+ * org.tron.trident.core.contract.ContractFunction#toString()}</p>
  *
  * @since jdk 1.8.0_231
  * @see org.tron.trident.core.contract.ContractFunction
- * @see org.tron.trident.proto.Common.SmartContract;
+ * @see org.tron.trident.proto.Common.SmartContract
  */
 
 public class Contract {
@@ -281,7 +280,7 @@ public class Contract {
 
   /**
    * Convert abi entries to ContractFunction objects
-   * @see org.tron.trident.proto.Common.SmartContract.ABI.Entry;
+   * @see org.tron.trident.proto.Common.SmartContract.ABI.Entry
    * @see ContractFunction ;
    */
   protected void abiToFunctions() {
@@ -420,8 +419,6 @@ public class Contract {
     /**
      * load abi from json format string
      * @param abiString abi string in json format
-     * @return proto.Common.SmartContract.ABI
-     * @throws InvalidProtocolBufferException if the input is not valid JSON format or there are unknown fields in the input
      */
     public static void loadAbiFromJson(String abiString, ABI.Builder builder) throws Exception {
         JsonFormat.parser().ignoringUnknownFields().merge(abiString, builder);
